@@ -14,3 +14,4 @@
 //函数Write_with_Move()，从键盘输入，并将其Move
 //函数Prinf_List()，打印
 //函数Add()，加法函数，注意小数点位置
+//函数Subtract()，减法函数，注意负号和补零
