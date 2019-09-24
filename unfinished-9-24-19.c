@@ -201,11 +201,14 @@ void Prinf_List(List PtrL) {
 }
 
 List Add(List X1, List X2) {
-    List p = (List)malloc(sizeof(struct LNode));
+    List p = MakeEmpty();
+    List q = (List)malloc(sizeof(struct LNode));
+    
     int i;
     
-    p->Next = NULL;
-    p->Data = '.';
+    p->Next = q;
+    q->Data = '.';
+    q->Next = NULL;
     
     Move(p);
     
@@ -240,8 +243,6 @@ List Add(List X1, List X2) {
         }
         Change(sum, i, p);
     }
-    
-    Change(-2, 201, p);
     
     return p;
 }
