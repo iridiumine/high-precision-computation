@@ -12,7 +12,7 @@ struct LNode {
     List Next;
 };
 
-List PtrL, X, X1, X2;
+List PtrL, X, Y, X1, X2;
 
 List MakeEmpty() {
     List PtrL;
@@ -178,7 +178,7 @@ void Prinf_List(List PtrL) {
         if (p->Data != '0') {
             flag1 = 0;
         }
-        if (flag1 == 0) {
+        if (flag1 == 0 || (flag1 == -1 && i == 200)) {
             printf("%c", p->Data);
         }
         p = p->Next;
@@ -247,6 +247,51 @@ List Add(List X1, List X2) {
     return p;
 }
 
+List Subtract(List X1, List X2) {
+    List p = MakeEmpty();
+    List q = (List)malloc(sizeof(struct LNode));
+    
+    int i;
+    
+    p->Next = q;
+    q->Data = '.';
+    q->Next = NULL;
+    
+    Move(p);
+    
+    for (i = 399; i >= 202; i--) {
+        int a = Find_Kth_number(i, X1);
+        int b = Find_Kth_number(i, X2);
+        int subtraction = a - b + flag;
+        flag = 0;
+        if (subtraction < 0) {
+            subtraction = subtraction + 10;
+            flag = -1;
+        }
+        Change(subtraction, i, p);
+    }
+    
+    for (i = 200; i >= 1; i--) {
+        int a = Find_Kth_number(i, X1);
+        int b = Find_Kth_number(i, X2);
+        int subtraction = a - b + flag;
+        flag = 0;
+        if (subtraction < 0) {
+            subtraction = subtraction + 10;
+            flag = -1;
+        }
+        Change(subtraction, i, p);
+    }
+    
+    if (flag == -1) {
+        printf("-");
+        flag = 0;
+        return Subtract(X2, X1);
+    }
+    
+    return p;
+}
+
 int main(int argc, char const *argv[]) {
     X1 = MakeEmpty();
     X2 = MakeEmpty();
@@ -255,8 +300,10 @@ int main(int argc, char const *argv[]) {
     Write_with_Move(X2);
     
     X = Add(X1, X2);
+    Y = Subtract(X1, X2);
     
     Prinf_List(X);
+    Prinf_List(Y);
     
     return 0;
 }
