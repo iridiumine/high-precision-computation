@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define ElementType char
 #define MAXSIZE 400
@@ -169,15 +170,30 @@ List Write_with_Move(List PtrL) {
     return PtrL;
 }
 
-char *Store_to_array(List PtrL) {
-    char temp[MAXSIZE];
-    char *p = temp;
+List Multiply(List X1, List X2) {
+    char temp1[MAXSIZE];
+    char temp2[MAXSIZE];
     
-    int i = Length(PtrL), j = 1;
+    List p = NULL;
     
+    memset(temp1, 0, sizeof(temp1));
+    memset(temp2, 0, sizeof(temp2));
     
-    for (; i > 0; i--) {
-        temp[MAXSIZE - j] = Find_Kth_number(i, PtrL);
+    int i1 = Length(X1), j1 = 2;
+    int i2 = Length(X2), j2 = 2;
+    
+    for (; i1 > 0; i1--) {
+        if (Find_Kth_number(i1, X1) != -2) {
+            temp1[MAXSIZE - j1] = Find_Kth_number(i1, X1) + '0';
+            j1++;
+        }
+    }
+    
+    for (; i2 > 0; i2--) {
+        if (Find_Kth_number(i2, X2) != -2) {
+            temp2[MAXSIZE - j2] = Find_Kth_number(i2, X1) + '0';
+            j2++;
+        }
     }
     
     return p;
@@ -316,17 +332,6 @@ List Subtract(List X1, List X2) {
 }
 
 int main(int argc, char const *argv[]) {
-    X1 = MakeEmpty();
-    X2 = MakeEmpty();
-    
-    Write_with_Move(X1);
-    Write_with_Move(X2);
-    
-    X = Subtract(X1, X2);
-    Y = Add(X1, X2);
-    
-    Print_with_Move(X);
-    Print_with_Move(Y);
     
     return 0;
 }
