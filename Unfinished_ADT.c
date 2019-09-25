@@ -12,6 +12,8 @@
 //函数Move()，补充填入链表，使得小数点恰好位于第201位，总共补充到400位，小数点前200位，小数点后199位
 //函数Write_without_Move()，从键盘输入
 //函数Write_with_Move()，从键盘输入，并将其Move
-//函数Prinf_List()，打印
+//函数Store_to_array(),将链表的元素存储在字符串数组中，返回指针
+//函数Print_without_Move()，打印链表
+//函数Print_with_Move()，打印Move过的链表
 //函数Add()，加法函数，注意小数点位置
 //函数Subtract()，减法函数，注意负号和补零
