@@ -1,4 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#define ElementType char
+#define MAXSIZE 400
+
+int flag = 0;
+
+typedef struct LNode *List;
+struct LNode {
+    ElementType Data;
+    List Next;
+};
 
 List PtrL, X, Y, X1, X2;
 
@@ -120,11 +133,13 @@ List Insert_Kth(ElementType X, int K, List PtrL) {
         s = (List)malloc(sizeof(struct LNode));
         s->Data = X;
         s->Next = PtrL;
-        return s;//返回表头指针
+        return s;
     }
+    
     p = Find_Kth(K-1, PtrL);
+    
     if (p == NULL) {
-        printf("参数i错误\n");
+        printf("wrong parameter K\n");
         return NULL;
     }
     else {
@@ -132,7 +147,7 @@ List Insert_Kth(ElementType X, int K, List PtrL) {
         s->Data = X;
         s->Next = p->Next;
         p->Next = s;
-        return PtrL;//返回表头指针
+        return PtrL;
     }
 }
 
