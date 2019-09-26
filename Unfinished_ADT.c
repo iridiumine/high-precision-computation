@@ -8,12 +8,13 @@
 //函数Insert_zero_before()，在头结点后面插入‘0’
 //函数Insert_zero_after()，在PtrL后面插入‘0’
 //函数Change()，改变第K个位置的元素值
-//函数Insert()，在PtrL后插入结点，包含值
+//函数Insert()，在尾结点后插入结点，包含值
+//函数Insert_Kth(),在第K个结点后插入结点，包含值
 //函数Move()，补充填入链表，使得小数点恰好位于第201位，总共补充到400位，小数点前200位，小数点后199位
 //函数Write_without_Move()，从键盘输入
 //函数Write_with_Move()，从键盘输入，并将其Move
-//函数Store_to_array(),将链表的元素存储在字符串数组中，返回指针
 //函数Print_without_Move()，打印链表
 //函数Print_with_Move()，打印Move过的链表
 //函数Add()，加法函数，注意小数点位置
 //函数Subtract()，减法函数，注意负号和补零
+//函数Multiply()，乘法函数，返回List
