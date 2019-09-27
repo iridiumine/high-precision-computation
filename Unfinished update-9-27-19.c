@@ -544,14 +544,5 @@ List SysConvert(List X, int K) {
 }
 
 int main(int argc, char const *argv[]) {
-    X = MakeEmpty();
     
-    Write_without_Move(X);
-    
-    int K;
-    scanf("%d", &K);
-    
-    SysConvert(X, K);
-    
-    return 0;
 }
