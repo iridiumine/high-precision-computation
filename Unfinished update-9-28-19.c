@@ -4,6 +4,7 @@
 
 #define ElementType char
 #define MAXSIZE 400
+#define INTEGER_SIZE 30
 
 int flag = 0;
 
@@ -149,6 +150,80 @@ List Insert_Kth(ElementType X, int K, List PtrL) {
         p->Next = s;
         return PtrL;
     }
+}
+
+List FtoL(float a, int times) {
+    int integer = a / 1;
+    a = a - integer;
+    
+    while ((a - (int)(a / 1)) != 0) {
+        a = a * 10;
+    }
+    int decimal = a;
+    
+    char integer_array[INTEGER_SIZE];
+    char decimal_array[times];
+    
+    memset(integer_array, 0, sizeof(integer_array));
+    memset(decimal_array, 0, sizeof(decimal_array));
+    
+    int d = INTEGER_SIZE - 1;
+    
+    while (integer / 10 != 0) {
+        integer_array[d] = integer % 10 + '0';
+        d--;
+        integer = integer / 10;
+    }
+    integer_array[d] = integer % 10 + '0';
+    
+    int b = times - 1;
+    
+    while (decimal / 10 != 0) {
+        decimal_array[b] = decimal % 10 + '0';
+        b--;
+        decimal = decimal / 10;
+    }
+    decimal_array[b] = decimal % 10 + '0';
+    
+    
+    char output[INTEGER_SIZE + 2 + times];
+    memset(output, 0, sizeof(output));
+    
+    int c = 0;
+    int e = 0;
+    for (c = 0; c < INTEGER_SIZE; c++) {
+        if (integer_array[c] >= '0' && integer_array[c] <= '9') {
+            output[e] = integer_array[c];
+            e++;
+        }
+    }
+    
+    output[e] = '.';
+    e++;
+    c = 0;
+    
+    for (c = 0; c < times; c++) {
+        if (decimal_array[c] >= '0' && decimal_array[c] <= '9') {
+            output[e] = decimal_array[c];
+            e++;
+        }
+    }
+    
+    List PtrL;
+    
+    PtrL = MakeEmpty();
+    
+    List p = PtrL;
+    
+    for (size_t t = 0; t < INTEGER_SIZE + 2 + times; t++) {
+        if ((output[t] >= '0' && output[t] <= '9') || output[t] == '.') {
+            Insert(output[t], p);
+            int i = Length(PtrL);
+            p = Find_Kth(i, PtrL);
+        }
+    }
+    
+    return PtrL;
 }
 
 void Move(List PtrL) {
@@ -586,7 +661,39 @@ List SysConvert(List X, int K) {
     return PtrL;
 }
 
-int main(int argc, char const *argv[]) {
+List Polynomial_calculate(List X) {
+    float coef = 0.0;
+    int expon = 0;
+    
+    List PtrL = FtoL(0.0, 1);
+    
+    while ((scanf("%f", &coef)) == 1) {
+        scanf("%d", &expon);
+        
+        int times = 0;
+        float coef_temp = coef;
+        while ((coef_temp - (int)(coef_temp / 1)) != 0) {
+            coef_temp = coef_temp * 10;
+            times++;
+        }
+        
+        List power = FtoL(1.0, 1);
+        
+        int i;
+        for (i = 0; i < expon; i++) {
+            power = Multiply(power, X);
+        }
+        
+        List product;
+        product = Multiply(FtoL(coef, times), power);
+        Move(PtrL);
+        Move(product);
+        PtrL = Add(PtrL, product);
+    }
+    
+    return PtrL;
+}
 
-    return 0;
+int main(int argc, char const *argv[]) {
+    
 }
