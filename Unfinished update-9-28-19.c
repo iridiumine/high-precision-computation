@@ -4,7 +4,7 @@
 
 #define ElementType char
 #define MAXSIZE 400
-#define INTEGER_SIZE 30
+#define INTEGER_SIZE 200
 
 int flag = 0;
 
