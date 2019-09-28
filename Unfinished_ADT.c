@@ -10,6 +10,7 @@
 //函数Change()，改变第K个位置的元素值
 //函数Insert()，在尾结点后插入结点，包含值
 //函数Insert_Kth(),在第K个结点后插入结点，包含值
+//函数FtoL()，将float型变量用链表存储，返回头结点
 //函数Move()，补充填入链表，使得小数点恰好位于第201位，总共补充到400位，小数点前200位，小数点后199位
 //函数Write_without_Move()，从键盘输入
 //函数Write_with_Move()，从键盘输入，并将其Move
@@ -19,3 +20,4 @@
 //函数Subtract()，减法函数，注意负号和补零
 //函数Multiply()，乘法函数，返回List
 //函数SysConvert()，进制转换，将输入数字从小数点拆分，整数部分带余除法，小数部分乘法，再整合
+//函数Polynomial_calculate()，多项式求值，调用Multiply()，Add()和Subtract()，求和
