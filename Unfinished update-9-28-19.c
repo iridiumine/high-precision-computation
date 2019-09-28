@@ -695,5 +695,48 @@ List Polynomial_calculate(List X) {
 }
 
 int main(int argc, char const *argv[]) {
+    int type = 5;
     
+    switch (type) {
+        case 1:
+            X1 = MakeEmpty();
+            X2 = MakeEmpty();
+            Write_with_Move(X1);
+            Write_with_Move(X2);
+            PtrL = Add(X1, X2);
+            Print_with_Move(PtrL);
+            break;
+        case 2:
+            X1 = MakeEmpty();
+            X2 = MakeEmpty();
+            Write_with_Move(X1);
+            Write_with_Move(X2);
+            PtrL = Subtract(X1, X2);
+            Print_with_Move(PtrL);
+            break;
+        case 3:
+            X1 = MakeEmpty();
+            X2 = MakeEmpty();
+            Write_without_Move(X1);
+            Write_without_Move(X2);
+            PtrL = Multiply(X1, X2);
+            Print_without_Move(PtrL);
+            break;
+        case 4:
+            X = MakeEmpty();
+            Write_without_Move(X);
+            int K;
+            scanf("%d", &K);
+            PtrL = SysConvert(X, K);
+            Print_without_Move(PtrL);
+            break;
+        case 5:
+            X = MakeEmpty();
+            Write_without_Move(X);
+            PtrL = Polynomial_calculate(X);
+            Print_with_Move(PtrL);
+            break;
+    }
+    
+    return 0;
 }
