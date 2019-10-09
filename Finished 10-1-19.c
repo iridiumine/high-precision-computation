@@ -245,6 +245,16 @@ void Move(List PtrL) {
     }
 }
 
+void Remove(List PtrL) {
+    while (PtrL->Next->Data == '0') {
+        List p = PtrL->Next;
+        PtrL->Next = p->Next;
+    }
+    while (Find_Kth(Length(PtrL), PtrL)->Data == '0') {
+        Find_Kth(Length(PtrL)-1, PtrL)->Next = NULL;
+    }
+}
+
 List Write_without_Move(List PtrL) {
     char c;
     List p = PtrL;
@@ -472,14 +482,27 @@ List Add(List X1, List X2) {
         Change(sum, i, p);
     }
     
+    
     return p;
 }
 
 List Multiply(List X1, List X2) {
     PtrL = MakeEmpty();
     
+    int tag1 = 0, tag2 = 0;
+    
     if (X1->Symbol != X2->Symbol) {
         PtrL->Symbol = '-';
+        
+    }
+    
+    if (X1->Next->Data == '0') {
+        X1->Next->Data = '1';
+        tag1 = 1;
+    }
+    if (X2->Next->Data == '0') {
+        X2->Next->Data = '1';
+        tag2 = 1;
     }
     
     char temp1[MAXSIZE];
@@ -540,6 +563,7 @@ List Multiply(List X1, List X2) {
             }
         }
     }
+    
     sum = u + v;
     
     int temp[2 * MAXSIZE];
@@ -577,9 +601,49 @@ List Multiply(List X1, List X2) {
     
     int size = Length(PtrL);
     
-    Insert_Kth('.', size - sum + 1, PtrL);
-    
-    return PtrL;
+    if (tag1 == 0 && tag2 == 0) {
+        Insert_Kth('.', size - sum + 1, PtrL);
+        Move(PtrL);
+        Remove(PtrL);
+        
+        return PtrL;
+    }
+    else if (tag1 != 0 && tag2 == 0) {
+        
+        Insert_Kth('.', size - sum + 1, PtrL);
+        Move(PtrL);
+        List PtrList;
+        Move(X2);
+        PtrList = Subtract(PtrL, X2);
+        PtrList->Symbol = PtrL->Symbol;
+        Remove(PtrList);
+        return PtrList;
+    }
+    else if (tag1 == 0 && tag2 != 0) {
+        Insert_Kth('.', size - sum + 1, PtrL);
+        Move(PtrL);
+        List PtrList;
+        Move(X1);
+        PtrList = Subtract(PtrL, X1);
+        PtrList->Symbol = PtrL->Symbol;
+        Remove(PtrList);
+        return PtrList;
+    }
+    else  {
+        Insert_Kth('.', size - sum + 1, PtrL);
+        PtrL->Next->Data = PtrL->Next->Data - 1;
+        X1->Next->Data = PtrL->Next->Data - 1;
+        X2->Next->Data = PtrL->Next->Data - 1;
+        Move(PtrL);
+        Move(X1);
+        Move(X2);
+        List PtrList1, PtrList2;
+        PtrList1 = Subtract(PtrL, X1);
+        PtrList2 = Subtract(PtrList1, X2);
+        PtrList2->Symbol = PtrL->Symbol;
+        Remove(PtrList2);
+        return PtrList2;
+    }
 }
 
 List SysConvert(List X, int K) {
@@ -686,7 +750,7 @@ List SysConvert(List X, int K) {
     output2[size_output-1] = '\0';
     
     j = 0;
-    
+
     for (i = point_location + 2; i <= rear; i++) {
         temp2[j] = Find_Kth_number(i, X);
         j++;
@@ -776,48 +840,6 @@ List Polynomial_calculate(List X) {
 }
 
 int main(int argc, char const *argv[]) {
-    int type = 5;
-    
-    switch (type) {
-        case 1:
-            X1 = MakeEmpty();
-            X2 = MakeEmpty();
-            Write_with_Move(X1);
-            Write_with_Move(X2);
-            PtrL = Add(X1, X2);
-            Print_with_Move(PtrL);
-            break;
-        case 2:
-            X1 = MakeEmpty();
-            X2 = MakeEmpty();
-            Write_with_Move(X1);
-            Write_with_Move(X2);
-            PtrL = Subtract(X1, X2);
-            Print_with_Move(PtrL);
-            break;
-        case 3:
-            X1 = MakeEmpty();
-            X2 = MakeEmpty();
-            Write_without_Move(X1);
-            Write_without_Move(X2);
-            PtrL = Multiply(X1, X2);
-            Print_without_Move(PtrL);
-            break;
-        case 4:
-            X = MakeEmpty();
-            Write_without_Move(X);
-            int K;
-            scanf("%d", &K);
-            PtrL = SysConvert(X, K);
-            Print_without_Move(PtrL);
-            break;
-        case 5:
-            X = MakeEmpty();
-            Write_without_Move(X);
-            PtrL = Polynomial_calculate(X);
-            Print_with_Move(PtrL);
-            break;
-    }
-    
+     
     return 0;
 }
